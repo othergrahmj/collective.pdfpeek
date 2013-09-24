@@ -20,37 +20,8 @@ import logging
 logger = logging.getLogger('collective.pdfpeek.browser.utils')
 
 
-def pdf_changed(content, event):
-    """
-    This event handler is fired when ATFile objects are initialized or edited
-    and calls the appropriate functions to convert the pdf to png thumbnails
-    and store the list of thumbnails annotated on the file object.
-    """
-    portal = getSite()
-    if 'collective.pdfpeek' in portal.portal_quickinstaller.objectIds():
-        registry = getUtility(IRegistry)
-        config = registry.forInterface(IPDFPeekConfiguration)
-        if config.eventhandler_toggle is True:
-            if content.getContentType() == 'application/pdf':
-                """Mark the object with the IPDF marker interface."""
-                alsoProvides(content, IPDF)
-                pdf_file_data_string = content.getFile().data
-                image_converter = convertPDFToImage()
-                images = image_converter.generate_thumbnails(
-                    pdf_file_data_string)
-                alsoProvides(content, IAttributeAnnotatable)
-                annotations = IAnnotations(content)
-                annotations['pdfpeek'] = {}
-                annotations['pdfpeek']['image_thumbnails'] = images
-                content.reindexObject()
-            else:
-                noLongerProvides(content, IPDF)
-                IAnnotations(content)
-                annotations = IAnnotations(content)
-                if 'pdfpeek' in annotations:
-                    del annotations['pdfpeek']
-                content.reindexObject()
-        return None
+def convert_pdf(content):
+    return IImageFromPDFConverter(content)()
 
 
 def queue_document_conversion(content, event):
@@ -77,7 +48,7 @@ def queue_document_conversion(content, event):
             'collective.pdfpeek.conversion_' + portal.id)
 
         # create a converter job
-        converter_job = Job(IImageFromPDFConverter, content)
+        converter_job = Job(convert_pdf, content)
         # add it to the queue
         conversion_queue.pending.append(converter_job)
         logger.info("Document Conversion Job Queued")
