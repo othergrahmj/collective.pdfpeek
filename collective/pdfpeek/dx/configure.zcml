@@ -1,0 +1,43 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.pdfpeek">
+
+    <browser:page
+        for="plone.app.contenttypes.interfaces.IFile"
+        name="check-pdf"
+        class="..browser.pdf.IsPdfView"
+        permission="zope2.View"
+        />
+
+    <subscriber
+        for="plone.app.contenttypes.interfaces.IFile
+             zope.lifecycleevent.IObjectModifiedEvent"
+        handler="..events.queue_document_conversion"
+        />
+
+    <adapter
+        for="plone.app.contenttypes.interfaces.IFile"
+        factory=".conversion.DexterityPDFExtractor"
+        />
+
+    <genericsetup:registerProfile
+        name="dx"
+        title="collective.pdfpeek.dx"
+        directory="profiles/default"
+        description="Installs the Dexterity adapters and event handlers."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+<!--     <plone:behavior
+        title="PDF thumbnails and metadata"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        description="Generate asynchrounously thumbnails of pdf stored into primary field. "
+        provides=".behavior.IPrimaryFieldPDFThumbnailsAndMetadata"
+        factory="plone.behavior.AnnotationStorage"
+        marker=".behavior.IPDFDataExtractionEnabled"
+        /> -->
+
+</configure>

@@ -1,0 +1,39 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.pdfpeek">
+
+    <browser:page
+        for="Products.ATContentTypes.interface.file.IATFile"
+        name="check-pdf"
+        class="..browser.pdf.IsPdfView"
+        permission="zope2.View"
+        />
+
+    <subscriber
+        for="Products.ATContentTypes.interface.file.IATFile
+             Products.Archetypes.interfaces.IObjectEditedEvent"
+        handler="..events.queue_document_conversion"
+        />
+
+    <subscriber
+        for="Products.ATContentTypes.interface.file.IATFile
+             Products.Archetypes.interfaces.IObjectInitializedEvent"
+        handler="..events.queue_document_conversion"
+        />
+
+    <adapter
+        for="Products.ATContentTypes.interface.file.IATFile"
+        factory=".conversion.ArchetypePDFExtractor"
+        />
+
+    <genericsetup:registerProfile
+        name="at"
+        title="collective.pdfpeek.at"
+        directory="profiles/default"
+        description="Installs the Archetypes adapters and event handlers."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+</configure>

@@ -6,7 +6,7 @@ import os
 def read(*paths):
     return open(os.path.join(os.path.dirname(__file__), *paths), 'r').read()
 
-version = '1.4.dev0'
+version = '2.0.dev0'
 
 setup(
     name='collective.pdfpeek',
@@ -39,14 +39,17 @@ setup(
         'plone.app.registry',
         'plone.browserlayer',
         'plone.rfc822',
+        'Pillow >= 2.0.0',
     ],
     extras_require={
+        'archetype': [
+            'Products.ATContentTypes'
+        ],
         'dexterity': [
-            'plone.app.dexterity',
+            'plone.app.contenttypes'
         ],
         'test': [
-            'Products.PloneTestCase',
-            'plone.mocktestcase>=1.0b3',
+            'plone.app.testing',
         ],
     },
     entry_points="""

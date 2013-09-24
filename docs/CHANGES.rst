@@ -1,8 +1,16 @@
 Changelog
 =========
 
-1.4 (unreleased)
+2.0 (unreleased)
 ----------------
+
+- Use ``plone.app.testing`` and layers for tests. Add more tests for dexterity
+  and ATContentTypes.
+  [saily]
+
+- Huge refactoring to replace transformers and functions with more flexible
+  adapters.
+  [saily]
 
 - Plone 4.3 compatibility by removing deprecated imports from
   ``zope.app.component``.

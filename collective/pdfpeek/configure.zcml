@@ -14,9 +14,12 @@
         file="permissions.zcml" />
 
     <include package=".browser" />
-    <include package="." file="genericsetup.zcml" />
-    <include package="." file="events.zcml" />
-    <include package="." file="controlpanel.zcml" />
+    <include file="genericsetup.zcml" />
+    <include file="controlpanel.zcml" />
+
+    <!-- Conditional include of dx and/or at folders -->
+    <include zcml:condition="installed Products.ATContentTypes" package=".at" />
+    <include zcml:condition="installed plone.app.contenttypes" package=".dx" />
 
     <adapter
         factory=".traversal.PDFPeekImageScaleTraverser"

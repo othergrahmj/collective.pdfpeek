@@ -16,7 +16,7 @@ class IConvertPDFToImage(Interface):
     """Marker interface identifying the pdf image thumbnail generator."""
 
 
-class IImageFromPDFConverter(Interface):
+class IPDFDataExtractor(Interface):
     """Adapter to retrieve PDF converter."""
 
 
@@ -68,3 +68,11 @@ class IPDFPeekConfiguration(Interface):
         required=True,
         default=128,
     )
+
+    page_limit = schema.Int(
+        title=_(u"Limit pages"),
+        description=_(u"Limit preview and thumbnail generation to maximum "
+                      u"amount of pages. 0 means all no limit."),
+        default=0,
+        required=True,
+        )
