@@ -5,8 +5,8 @@ PdfPeek is a Plone 4 add-on product that utilizes GNU Ghostscript to generate
 image thumbnail previews of PDF files uploaded to ATFile based content
 objects.
 
-This product, when installed in a Plone 4.x site, will automatically generate 
-preview and thumbnail images of each page of uploaded PDF files and store 
+This product, when installed in a Plone 4.x site, will automatically generate
+preview and thumbnail images of each page of uploaded PDF files and store
 them annotated onto the content object containing the PDF file.
 
 Image generation from the PDF file is processed asynchronously so that the user
@@ -43,12 +43,12 @@ example user interface and default event handlers on and off.
 
 **Requires the GNU ghostscript gs binary to be available on the $PATH!**
 
-*Tested on POSIX compliant systems such as LINUX and MacOS 10.6. Untested on* 
+*Tested on POSIX compliant systems such as LINUX and MacOS 10.6. Untested on*
 *Windows systems.*
 *(Wouldn't be surprised if it works, as long as you can install gs.)*
 
 *As of version 0.17, Plone 3.x is no longer officially supported.*
 
- * Code repository: https://svn.plone.org/svn/collective/collective.pdfpeek
+ * Code repository: https://github.com/collective/collective.pdfpeek
  * Questions and comments to db@davidbrenneman.com
- * Report bugs to db@davidbrenneman.com
+ * Report bugs on github: https://github.com/collective/collective.pdfpeek/issues

@@ -19,6 +19,9 @@ Changelog
   adapter. This brings full functionality for ``plone.app.contenttypes``.
   [saily]
 
+- Updated docs.
+  [saily]
+
 
 1.3 (2011-05-31)
 ----------------
