@@ -15,15 +15,16 @@ __docformat__ = 'plaintext'
 import logging
 
 from zope.component import getUtility
-from zope.app.component.hooks import getSite
+
 from zope.interface import alsoProvides, noLongerProvides
 from zope.annotation.interfaces import IAnnotations, IAttributeAnnotatable
-
+from zope.component.hooks import getSite
 from collective.pdfpeek.transforms import convertPDFToImage
 from collective.pdfpeek.interfaces import IPDF
 from collective.pdfpeek.interfaces import IPDFPeekConfiguration
 from collective.pdfpeek.async import get_queue, Job
-from collective.pdfpeek.conversion import convert_pdf_to_image, remove_image_previews 
+from collective.pdfpeek.conversion import convert_pdf_to_image, remove_image_previews
+from plone.registry.interfaces import IRegistry
 
 logger = logging.getLogger('collective.pdfpeek.browser.utils')
 

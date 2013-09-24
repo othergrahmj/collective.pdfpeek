@@ -1,11 +1,12 @@
-import datetime
-import logging
-
-import persistent
 from zope import interface
 from zope import component
-from zope.app.component.hooks import getSite, getSiteManager
+from zope.component.hooks import getSite
+from zope.component.hooks import getSiteManager
 from ZODB.POSException import ConflictError
+
+import datetime
+import logging
+import persistent
 
 logger = logging.getLogger('collective.pdfpeek.async')
 

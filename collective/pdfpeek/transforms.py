@@ -21,7 +21,7 @@ from PIL import Image
 
 from zope.interface import implements
 from zope.component import getUtility
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 from OFS.Image import Image as OFSImage
 
 from plone.registry.interfaces import IRegistry

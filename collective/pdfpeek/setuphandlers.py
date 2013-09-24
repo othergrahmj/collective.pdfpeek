@@ -11,7 +11,7 @@ import transaction
 from zope.component import getSiteManager
 from zope.component import getUtility
 from zope.component import queryUtility
-from zope.app.component.hooks import setSite
+from zope.component.hooks import setSite
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import noLongerProvides
 from Products.CMFCore.utils import getToolByName

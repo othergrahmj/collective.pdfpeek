@@ -7,7 +7,7 @@
 
 from Acquisition import aq_inner
 from zope.component import getUtility
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 from zope.interface import implements
 from zope.schema.fieldproperty import FieldProperty
 from OFS.SimpleItem import SimpleItem
