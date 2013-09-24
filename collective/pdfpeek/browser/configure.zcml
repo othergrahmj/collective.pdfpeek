@@ -2,9 +2,10 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.pdfpeek">
 
-  <include package="plone.browserlayer" />
+    <include package="plone.browserlayer" />
 
     <!-- Resource directory for javascripts -->
     <browser:resourceDirectory
@@ -39,6 +40,15 @@
         name="check-pdf"
         class=".pdf.IsPdfView"
         permission="zope2.View"
+        zcml:condition="installed Products.ATContentTypes"
+        />
+
+    <browser:page
+        for="plone.app.contenttypes.interfaces.IFile"
+        name="check-pdf"
+        class=".pdf.IsPdfView"
+        permission="zope2.View"
+        zcml:condition="installed plone.app.contenttypes"
         />
 
     <browser:page
@@ -55,7 +65,7 @@
        manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
        layer=".interfaces.IPDFpeekLayer"
        template="templates/pdfpeek.pt"
-       permission="zope2.View" 
+       permission="zope2.View"
        />
 
     <browser:page
@@ -65,6 +75,7 @@
       permission="cmf.ManagePortal"
       allowed_interface='.utils.IpdfpeekUtilView'
       />
+
 
 
 </configure>

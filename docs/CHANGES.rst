@@ -15,6 +15,10 @@ Changelog
   directly.
   [saily]
 
+- Dexterity types integration with field retrieval using IPrimaryFieldInfo
+  adapter. This brings full functionality for ``plone.app.contenttypes``.
+  [saily]
+
 
 1.3 (2011-05-31)
 ----------------

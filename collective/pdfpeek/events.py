@@ -1,30 +1,21 @@
-##########################################################################
-#                                                                        #
-#        copyright (c) 2009 David Brenneman                              #
-#        open-source under the GPL v2.1 (see LICENSE.txt)                #
-#                                                                        #
-##########################################################################
-
-"""
-PDFpeek Event Handlers
-"""
-
-__author__ = """David Brenneman <db@davidbrenneman.com>"""
-__docformat__ = 'plaintext'
-
-import logging
-
-from zope.component import getUtility
-
-from zope.interface import alsoProvides, noLongerProvides
-from zope.annotation.interfaces import IAnnotations, IAttributeAnnotatable
-from zope.component.hooks import getSite
-from collective.pdfpeek.transforms import convertPDFToImage
+# -*- coding: utf-8 -*-
+from collective.pdfpeek.async import get_queue, Job
+from collective.pdfpeek.conversion import remove_image_previews
+from collective.pdfpeek.interfaces import IImageFromPDFConverter
+from collective.pdfpeek.interfaces import ALLOWED_CONVERSION_TYPES
 from collective.pdfpeek.interfaces import IPDF
 from collective.pdfpeek.interfaces import IPDFPeekConfiguration
-from collective.pdfpeek.async import get_queue, Job
-from collective.pdfpeek.conversion import convert_pdf_to_image, remove_image_previews
+from collective.pdfpeek.transforms import convertPDFToImage
 from plone.registry.interfaces import IRegistry
+from plone.rfc822.interfaces import IPrimaryFieldInfo
+from zope.annotation.interfaces import IAnnotations
+from zope.annotation.interfaces import IAttributeAnnotatable
+from zope.interface import alsoProvides
+from zope.interface import noLongerProvides
+from zope.component import getUtility
+from zope.component.hooks import getSite
+
+import logging
 
 logger = logging.getLogger('collective.pdfpeek.browser.utils')
 
@@ -39,13 +30,14 @@ def pdf_changed(content, event):
     if 'collective.pdfpeek' in portal.portal_quickinstaller.objectIds():
         registry = getUtility(IRegistry)
         config = registry.forInterface(IPDFPeekConfiguration)
-        if config.eventhandler_toggle == True:
+        if config.eventhandler_toggle is True:
             if content.getContentType() == 'application/pdf':
                 """Mark the object with the IPDF marker interface."""
                 alsoProvides(content, IPDF)
                 pdf_file_data_string = content.getFile().data
                 image_converter = convertPDFToImage()
-                images = image_converter.generate_thumbnails(pdf_file_data_string)
+                images = image_converter.generate_thumbnails(
+                    pdf_file_data_string)
                 alsoProvides(content, IAttributeAnnotatable)
                 annotations = IAnnotations(content)
                 annotations['pdfpeek'] = {}
@@ -68,19 +60,27 @@ def queue_document_conversion(content, event):
     """
     portal = getSite()
     if 'collective.pdfpeek' in portal.portal_quickinstaller.objectIds():
-        ALLOWED_CONVERSION_TYPES = ['application/pdf']
-        # if we have a document in the file field, add the jobs to the queue
-        content_type = content.getFile().getContentType()
-        if (content_type in ALLOWED_CONVERSION_TYPES):
-            # get the queue
-            conversion_queue = get_queue('collective.pdfpeek.conversion_' + portal.id)
-            # create a converter job
-            converter_job = Job(convert_pdf_to_image, content)
-            # add it to the queue
-            conversion_queue.pending.append(converter_job)
-            logger.info("Document Conversion Job Queued")
-        else:
+
+        # Use IPrimaryFieldInfo adapter to retrieve field value
+        try:
+            info = IPrimaryFieldInfo(content)
+            content_type = info.value.contentType
+
+            assert content_type in ALLOWED_CONVERSION_TYPES
+
+        except (TypeError, AssertionError):
             queue_image_removal(content)
+            return
+
+        # get the queue
+        conversion_queue = get_queue(
+            'collective.pdfpeek.conversion_' + portal.id)
+
+        # create a converter job
+        converter_job = Job(IImageFromPDFConverter, content)
+        # add it to the queue
+        conversion_queue.pending.append(converter_job)
+        logger.info("Document Conversion Job Queued")
 
 
 def queue_image_removal(content):

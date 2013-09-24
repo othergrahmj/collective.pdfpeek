@@ -1,21 +1,51 @@
+# -*- coding: utf-8 -*-
+from collective.pdfpeek.interfaces import IImageFromPDFConverter
+from collective.pdfpeek.interfaces import ALLOWED_CONVERSION_TYPES
+from collective.pdfpeek.interfaces import IPDF
+from collective.pdfpeek.transforms import convertPDFToImage
+from plone.rfc822.interfaces import IPrimaryFieldInfo
+from zope.annotation.interfaces import IAnnotations
+from zope.annotation.interfaces import IAttributeAnnotatable
+from zope.interface import alsoProvides
+from zope.interface import noLongerProvides
+from zope.interface import implementer
+
 import logging
 
-from zope.interface import alsoProvides, noLongerProvides
-from zope.annotation.interfaces import IAnnotations, IAttributeAnnotatable
-
-from collective.pdfpeek.transforms import convertPDFToImage
-from collective.pdfpeek.interfaces import IPDF
 
 logger = logging.getLogger('collective.pdfpeek.conversion')
 
 
-def convert_pdf_to_image(content):
+@implementer(IImageFromPDFConverter)
+def convert_dxfile_pdf_to_image(content):
+    """Convert PDF in Dexterity file to image
     """
+    msg = "Converting pdf file."
+    logger.info(msg)
+
+    try:
+        info = IPrimaryFieldInfo(content)
+        content_type = info.value.contentType
+    except (TypeError, AssertionError):
+        content_type = None
+
+    if content_type not in ALLOWED_CONVERSION_TYPES:
+        return
+
+    msg = "Got A PDF file."
+    logger.info(msg)
+
+    return run_pdfpeek(content, str(info.value.data))
+
+
+@implementer(IImageFromPDFConverter)
+def convert_atfile_pdf_to_image(content):
+    """Convert PDF in ATFile to image
     """
     msg = "Converting pdf file."
     logger.info(msg)
     content_type = content.getFile().getContentType()
-    if content_type == "application/pdf":
+    if content_type in ALLOWED_CONVERSION_TYPES:
         pdf_file_data_string = str(content.getFile())
         msg = "Got A PDF file."
         logger.info(msg)

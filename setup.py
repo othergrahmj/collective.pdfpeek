@@ -38,6 +38,7 @@ setup(
         'pyPdf',
         'plone.app.registry',
         'plone.browserlayer',
+        'plone.rfc822',
     ],
     extras_require={
         'dexterity': [

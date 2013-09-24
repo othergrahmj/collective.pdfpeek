@@ -11,9 +11,9 @@
       </tal:block>
     </div>
   </div>
-  
+
   <div class="navi nextPage"></div>
-  
+
   <br clear="all" />
   <div id="box">
     <p />
@@ -22,13 +22,13 @@
     <p />
   </div>
   <script>
-    jq(function() {
+    $(function() {
 	   // thumbnail scrollable
-	   jq("#thumbnails").scrollable({size: 4,
+	   $("#thumbnails").scrollable({size: 4,
 					 mousewheel: true});
            //clickable: false});
-	   jq("#triggers img").reflect({height: 0.9, opacity: 0.2});
-	   jq('#triggers img')
+	   $("#triggers img").reflect({height: 0.9, opacity: 0.2});
+	   $('#triggers img')
 	       .prepOverlay({
 				subtype: 'image',
 				urlmatch: '_thumb$',

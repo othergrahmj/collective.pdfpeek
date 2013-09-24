@@ -1,19 +1,45 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.pdfpeek">
 
-  <subscriber 
-     for="Products.ATContentTypes.interface.file.IATFile
-          Products.Archetypes.interfaces.IObjectEditedEvent"
-     handler=".events.queue_document_conversion" />
+    <configure zcml:condition="installed Products.ATContentTypes">
 
-  <subscriber 
-     for="Products.ATContentTypes.interface.file.IATFile
-          Products.Archetypes.interfaces.IObjectInitializedEvent"
-     handler=".events.queue_document_conversion" />
-    
-    
+        <subscriber
+            for="Products.ATContentTypes.interface.file.IATFile
+                 Products.Archetypes.interfaces.IObjectEditedEvent"
+            handler=".events.queue_document_conversion"
+            />
+
+        <subscriber
+            for="Products.ATContentTypes.interface.file.IATFile
+                 Products.Archetypes.interfaces.IObjectInitializedEvent"
+            handler=".events.queue_document_conversion"
+            />
+
+        <adapter
+            for="Products.ATContentTypes.interface.file.IATFile"
+            factory=".conversion.convert_atfile_pdf_to_image"
+            />
+
+    </configure>
+
+    <configure zcml:condition="installed plone.app.contenttypes">
+
+        <subscriber
+            for="plone.app.contenttypes.interfaces.IFile
+                 zope.lifecycleevent.IObjectModifiedEvent"
+            handler=".events.queue_document_conversion"
+            />
+
+        <adapter
+            for="plone.app.contenttypes.interfaces.IFile"
+            factory=".conversion.convert_dxfile_pdf_to_image"
+            />
+
+    </configure>
+
 </configure>
 
-  
+

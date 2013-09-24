@@ -5,18 +5,23 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.pdfpeek">
 
-  <five:registerPackage package="." initialize=".initialize" />
+    <five:registerPackage package="." initialize=".initialize" />
 
-  <include package=".browser" />
-  <include package="." file="genericsetup.zcml" />
-  <include package="." file="events.zcml" />
-  <include package="." file="controlpanel.zcml" />
+    <!-- Load permissions -->
+    <include
+        zcml:condition="have plone-41"
+        package="Products.CMFCore"
+        file="permissions.zcml" />
 
-  <adapter 
-    factory=".traversal.PDFPeekImageScaleTraverser"
-    name="images"
-    />
+    <include package=".browser" />
+    <include package="." file="genericsetup.zcml" />
+    <include package="." file="events.zcml" />
+    <include package="." file="controlpanel.zcml" />
 
+    <adapter
+        factory=".traversal.PDFPeekImageScaleTraverser"
+        name="images"
+        />
 
 </configure>
 
