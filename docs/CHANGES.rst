@@ -11,6 +11,10 @@ Changelog
 - Add a new ``.gitignore`` file.
   [saily]
 
+- Add egg-contained buildout. Rename *.txt to *.rst to support github markup
+  directly.
+  [saily]
+
 
 1.3 (2011-05-31)
 ----------------

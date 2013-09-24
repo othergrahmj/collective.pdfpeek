@@ -1,8 +1,0 @@
-=========================
- collective.pdfpeek TODO
-=========================
-
-
-* Implement control panel for adding and removing image previews on file objects 
-      containing PDF files.
-

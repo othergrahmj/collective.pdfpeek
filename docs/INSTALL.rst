@@ -5,7 +5,7 @@ Via zc.buildout
 ---------------
 
 The recommended method of using collective.pdfpeek is by installing via
-zc.buildout using the plone.recipe.zope2instance recipe. 
+zc.buildout using the plone.recipe.zope2instance recipe.
 PdfPeek uses z3c.autoinclude to load it's zcml, so you don't need a zcml slug.
 
 Add collective.pdfpeek to the list of eggs in the instance section of your
@@ -28,12 +28,12 @@ Via setuptools
 To install collective.pdfpeek into the global Python environment (or a virtualenv),
 using a traditional Zope 2 instance, you can do this:
 
-* When you're reading this you have probably already run 
+* When you're reading this you have probably already run
   ``easy_install collective.pdfpeek``. Find out how to install setuptools
   (and EasyInstall) here:
   http://peak.telecommunity.com/DevCenter/EasyInstall
 
-* If you are using Zope 2.9 (not 2.10), get `pythonproducts`_ and install it 
+* If you are using Zope 2.9 (not 2.10), get `pythonproducts`_ and install it
   via::
 
     python setup.py install --home /path/to/instance
@@ -59,7 +59,7 @@ For automatic processing of the PdfPeek job queue, a simple cron script using
 curl or wget would suffice. It is nice to keep all of the configuration for a
 project in your buildout, however. For this reason, a zope clock server process
 is the recommended way to automatically process the job queue. You can do so by
-adding the following snippet to your [instance] part in your buildout 
+adding the following snippet to your [instance] part in your buildout
 configuration::
 
     [instance]
