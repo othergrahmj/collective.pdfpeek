@@ -4,6 +4,9 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Add travis-ci for Plone 4.1, Plone 4.2 and Plone 4.3.
+  [saily]
+
 - Use ``plone.app.testing`` and layers for tests. Add more tests for dexterity
   and ATContentTypes.
   [saily]
