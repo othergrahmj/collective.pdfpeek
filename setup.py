@@ -39,7 +39,7 @@ setup(
         'plone.app.registry',
         'plone.browserlayer',
         'plone.rfc822',
-        'Pillow >= 2.0.0',
+        'Pillow',
     ],
     extras_require={
         'archetype': [
