@@ -46,7 +46,10 @@ setup(
             'Products.ATContentTypes'
         ],
         'dexterity': [
-            'plone.app.contenttypes'
+            'plone.app.contenttypes >= 1.0rc1'
+        ],
+        'zamqp': [
+            'collective.zamqp >= 0.12.0',
         ],
         'test': [
             'plone.app.testing',
