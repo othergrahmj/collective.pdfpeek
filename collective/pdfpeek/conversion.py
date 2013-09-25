@@ -2,6 +2,8 @@
 from BTrees.OOBTree import OOBTree
 from OFS.Image import Image as OFSImage
 from PIL import Image
+from PyPDF2 import PdfFileReader
+from PyPDF2.utils import PdfReadError
 
 from cStringIO import StringIO
 from collective.pdfpeek.interfaces import IPDFDataExtractor
@@ -16,7 +18,6 @@ from zope.interface import noLongerProvides
 from zope.interface import implementer
 
 import logging
-import pyPdf
 import subprocess
 
 logger = logging.getLogger('collective.pdfpeek.conversion')
@@ -70,14 +71,14 @@ class AbstractPDFExtractor(object):
     def pdf(self):
         pdf = None
         try:
-            pdf = pyPdf.PdfFileReader(StringIO(self.data))
+            pdf = PdfFileReader(StringIO(self.data))
         except:
             logger.warn("Error opening pdf file, trying to fix it...")
             fixed_data = self._fixPdf(self.data)
 
             # try to reopen the pdf file again
             try:
-                pdf = pyPdf.PdfFileReader(StringIO(fixed_data))
+                pdf = PdfFileReader(StringIO(fixed_data))
             except:
                 logger.warn("This pdf file cannot be fixed.")
 
@@ -109,7 +110,7 @@ class AbstractPDFExtractor(object):
         if self.pdf:
             try:
                 return self.pdf.getDocumentInfo()
-            except pyPdf.utils.PdfReadError as e:
+            except PdfReadError as e:
                 # Multiple issues could happen here, see:
                 # - https://github.com/mfenniak/pyPdf/issues/13
                 # - https://bugs.launchpad.net/pypdf/+bug/242755

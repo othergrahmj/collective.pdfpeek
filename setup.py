@@ -35,7 +35,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'pyPdf',
+        'PyPDF2',
         'plone.app.registry',
         'plone.browserlayer',
         'plone.rfc822',
