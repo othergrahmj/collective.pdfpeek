@@ -1,3 +1,6 @@
+..  image:: https://travis-ci.org/collective/collective.pdfpeek.png?branch=master
+    :target: https://travis-ci.org/collective/collective.pdfpeek
+
 Introduction
 ============
 
