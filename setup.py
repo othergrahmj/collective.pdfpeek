@@ -35,11 +35,11 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'pyPdf',
+        'PyPDF2',
         'plone.app.registry',
         'plone.browserlayer',
         'plone.rfc822',
-        'Pillow >= 2.0.0',
+        'Pillow',
     ],
     extras_require={
         'archetype': [
@@ -49,6 +49,7 @@ setup(
             'plone.app.contenttypes >= 1.0rc1'
         ],
         'zamqp': [
+            'msgpack-python',
             'collective.zamqp >= 0.12.0',
         ],
         'test': [

@@ -4,6 +4,14 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Add ``collective.zamqp`` integration to allow queuing PDF thumbnail jobs into
+  RabbitMQ message queuing server.
+  [saily]
+
+- Switch to PyPDF2 which is maintained compared to pyPdf and can be used as
+  a drop-in replacement.
+  [saily]
+
 - Add travis-ci for Plone 4.1, Plone 4.2 and Plone 4.3.
   [saily]
 
