@@ -4,6 +4,10 @@ Changelog
 2.0 (unreleased)
 ----------------
 
+- Add a basic behavior to allow users to create PDF thumbnails for their own
+  dexterity content types.
+  [saily]
+
 - Add ``collective.zamqp`` integration to allow queuing PDF thumbnail jobs into
   RabbitMQ message queuing server.
   [saily]

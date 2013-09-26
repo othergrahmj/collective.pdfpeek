@@ -55,6 +55,9 @@ class TestATDataExtraction(TestCase):
             '/Creator': u'firefox-bin: cgpdftops CUPS filter',
             '/ModDate': u"D:20090416164855-07'00'",
             '/Author': u'David Brenneman',
+            'height': 792.0,
+            'width': 612.0,
+            'pages': 1,
         })
 
         images = converter.get_thumbnails(0, 1)
@@ -74,6 +77,9 @@ class TestATDataExtraction(TestCase):
             '/Producer': u'Mac OS X 10.5.6 Quartz PDFContext',
             '/CreationDate': u"D:20090420170431Z00'00'",
             '/ModDate': u"D:20090420170431Z00'00'",
+            'height': 612.0,
+            'width': 792.0,
+            'pages': 2,
         })
 
         # Export first page only
@@ -106,7 +112,11 @@ class TestATDataExtraction(TestCase):
         converter = IPDFDataExtractor(self.portal['distutils.pdf'])
 
         self.assertEqual(converter.pages, 98)
-        self.assertEqual(converter.metadata, {})
+        self.assertEqual(converter.metadata, {
+            'height': 792.0,
+            'width': 612.0,
+            'pages': 98,
+        })
 
         images = converter.get_thumbnails(0, converter.pages)
         self.assertIsNotNone(images)
@@ -118,7 +128,11 @@ class TestATDataExtraction(TestCase):
         converter.settings.page_limit = 1
 
         self.assertEqual(converter.pages, 1)
-        self.assertEqual(converter.metadata, {})
+        self.assertEqual(converter.metadata, {
+            'height': 792.0,
+            'width': 612.0,
+            'pages': 98,
+        })
 
         images = converter.get_thumbnails(0, converter.pages)
         self.assertIsNotNone(images)

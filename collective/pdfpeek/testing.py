@@ -53,6 +53,7 @@ class PDFPeekDXLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         self.applyProfile(portal, 'plone.app.contenttypes:default')
         self.applyProfile(portal, 'collective.pdfpeek:default')
+        self.applyProfile(portal, 'collective.pdfpeek.dx:dx')
 
 PDFPEEK_DX_FIXTURE = PDFPeekDXLayer()
 

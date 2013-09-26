@@ -19,7 +19,7 @@
 
     <!-- Conditional include of dx and/or at folders -->
     <include zcml:condition="installed Products.ATContentTypes" package=".at" />
-    <include zcml:condition="installed plone.app.contenttypes" package=".dx" />
+    <include zcml:condition="installed plone.dexterity" package=".dx" />
     <include zcml:condition="installed collective.zamqp" package=".zamqp" />
 
     <adapter

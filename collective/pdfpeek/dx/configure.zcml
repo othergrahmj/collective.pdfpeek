@@ -6,8 +6,17 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.pdfpeek">
 
+    <include package="plone.behavior" file="meta.zcml"/>
+
+    <plone:behavior
+        title="PDF thumbnails and metadata"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        description="Generate asynchrounously thumbnails of pdf stored into primary field. "
+        provides=".behaviors.IPDFDataExtractable"
+        />
+
     <browser:page
-        for="plone.app.contenttypes.interfaces.IFile"
+        for=".behaviors.IPDFDataExtractable"
         name="check-pdf"
         class="..browser.pdf.IsPdfView"
         permission="zope2.View"
@@ -15,7 +24,7 @@
 
     <!-- Use zope clockserver -->
     <subscriber
-        for="plone.app.contenttypes.interfaces.IFile
+        for="collective.pdfpeek.dx.behaviors.IPDFDataExtractable
              zope.lifecycleevent.IObjectModifiedEvent"
         handler="..events.queue_document_conversion"
         zcml:condition="not-installed collective.zamqp"
@@ -23,14 +32,14 @@
 
     <!-- Use zope zamqp -->
     <subscriber
-        for="plone.app.contenttypes.interfaces.IFile
+        for="collective.pdfpeek.dx.behaviors.IPDFDataExtractable
              zope.lifecycleevent.IObjectModifiedEvent"
         handler="..zamqp.utils.zamqp_queue_document_conversion"
         zcml:condition="installed collective.zamqp"
         />
 
     <adapter
-        for="plone.app.contenttypes.interfaces.IFile"
+        for=".behaviors.IPDFDataExtractable"
         factory=".conversion.DexterityPDFExtractor"
         />
 
@@ -40,15 +49,7 @@
         directory="profiles/default"
         description="Installs the Dexterity adapters and event handlers."
         provides="Products.GenericSetup.interfaces.EXTENSION"
+        zcml:condition="installed plone.app.contenttypes"
         />
-
-<!--     <plone:behavior
-        title="PDF thumbnails and metadata"
-        for="plone.dexterity.interfaces.IDexterityContent"
-        description="Generate asynchrounously thumbnails of pdf stored into primary field. "
-        provides=".behavior.IPrimaryFieldPDFThumbnailsAndMetadata"
-        factory="plone.behavior.AnnotationStorage"
-        marker=".behavior.IPDFDataExtractionEnabled"
-        /> -->
 
 </configure>

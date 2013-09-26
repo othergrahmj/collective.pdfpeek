@@ -22,6 +22,10 @@ import subprocess
 
 logger = logging.getLogger('collective.pdfpeek.conversion')
 
+inch = 72.0
+cm = inch / 2.54
+mm = cm * 0.1
+
 
 @implementer(IPDFDataExtractor)
 class AbstractPDFExtractor(object):
@@ -107,13 +111,18 @@ class AbstractPDFExtractor(object):
 
     @property
     def metadata(self):
+        data = {}
         if self.pdf:
             try:
-                return self.pdf.getDocumentInfo()
+                data = dict(self.pdf.getDocumentInfo())
             except PdfReadError as e:
                 logger.error("{0}: {1}".format(e.__class__, e))
 
-        return {}
+            data['width'] = float(self.pdf.getPage(0).mediaBox.getWidth())
+            data['height'] = float(self.pdf.getPage(0).mediaBox.getHeight())
+            data['pages'] = self.pdf.getNumPages()
+
+        return data
 
     @property
     def settings(self):
@@ -232,8 +241,6 @@ class AbstractPDFExtractor(object):
 
             # Use BTrees
             storage = OOBTree()
-            storage['metadata'] = self.metadata
-            storage['pages'] = self.pages
             storage['image_thumbnails'] = self.get_thumbnails(0, self.pages)
 
             annotations = IAnnotations(self.context)
