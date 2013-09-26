@@ -20,9 +20,12 @@ objects. Dexterity (and ``plone.app.contenttypes``) support was added in 2.0.
   using the site, as the processing of large PDF files can take many minutes to
   complete.
 
+  Since 2.0 pdfpeek supports *rabbitmq* message queuing to generate thumbnails,
+  see Installation_ section for more details
+
 * When a file object is initialized or edited, PdfPeek checks to see if a PDF
   file was uploaded. If so, a ghostscript image conversion job is added to the
-  pdfpeek job queue.
+  pdfpeek job queue (or rabbitmq in case of ``collective.zamqp`` usage).
 
 * If the file uploaded is not of content type 'application/pdf', an image
   removal job is added to the pdfpeek job queue. This job queue is processed

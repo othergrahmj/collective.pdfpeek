@@ -111,9 +111,6 @@ class AbstractPDFExtractor(object):
             try:
                 return self.pdf.getDocumentInfo()
             except PdfReadError as e:
-                # Multiple issues could happen here, see:
-                # - https://github.com/mfenniak/pyPdf/issues/13
-                # - https://bugs.launchpad.net/pypdf/+bug/242755
                 logger.error("{0}: {1}".format(e.__class__, e))
 
         return {}

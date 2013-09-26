@@ -52,6 +52,7 @@ into your Zope instance.
 Configuration
 =============
 
+
 Via zc.buildout
 ---------------
 
@@ -84,6 +85,7 @@ Then re-run your buildout like so to activate the clock server::
 
    $ bin/buildout
 
+
 Via cron
 --------
 
@@ -98,3 +100,56 @@ You will have to customize the above line with the hostname, port number, userna
 Save your crontab file and wget will now call the view method that triggers the
 processing of the pdf conversion queue every five minutes.
 
+
+Via RabbitMQ
+------------
+
+Install rabbitmq-server on your machine. There are very good documentations
+on the rabbitmq website, see: http://www.rabbitmq.com/download.html
+
+Instead of configuring a clockserver, you should configure collective.zamqp to
+work, see following example::
+
+    [buildout]
+    parts =
+        instance
+        worker
+
+    ...
+
+    [instance]
+    recipe = plone.recipe.zope2instance
+    http-address = 8080
+    eggs =
+        ...
+        collective.pdfpeek [zamqp]
+
+    ...
+    zope-conf-additional =
+        %import collective.zamqp
+        <amqp-broker-connection>
+            connection_id   superuser
+            hostname        my.rabbithostname.com
+            port            5672
+            username        guest
+            password        guest
+            heartbeat       120
+            keepalive       60
+        </amqp-broker-connection>
+
+    [worker]
+    <= instance
+    http-address = 8081
+    zserver-threads = 1
+    environment-vars =
+        ZAMQP_LOGLEVEL INFO
+    zope-conf-additional =
+        ${instance:zope-conf-additional}
+        <amqp-consuming-server>
+            connection_id   superuser
+            site_id         Plone
+            user_id         admin
+        </amqp-consuming-server>
+
+For advanced configuration see ``collective.zamqp`` documentation here:
+https://pypi.python.org/pypi/collective.zamqp
