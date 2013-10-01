@@ -115,7 +115,7 @@ class AbstractPDFExtractor(object):
         if self.pdf:
             try:
                 data = dict(self.pdf.getDocumentInfo())
-            except PdfReadError as e:
+            except (TypeError, PdfReadError) as e:
                 logger.error("{0}: {1}".format(e.__class__, e))
 
             data['width'] = float(self.pdf.getPage(0).mediaBox.getWidth())
