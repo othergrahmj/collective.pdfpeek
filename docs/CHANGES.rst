@@ -40,8 +40,8 @@ Changelog
 - Add a new ``.gitignore`` file.
   [saily]
 
-- Add egg-contained buildout. Rename *.txt to *.rst to support github markup
-  directly.
+- Add egg-contained buildout. Rename ``*.txt`` to ``*.rst`` to support github
+  markup directly.
   [saily]
 
 - Dexterity types integration with field retrieval using IPrimaryFieldInfo
