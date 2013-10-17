@@ -4,7 +4,8 @@ Changelog
 2.0b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix missing README.rst in package.
+  [saily]
 
 
 2.0b1 (2013-10-17)
