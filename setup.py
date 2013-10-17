@@ -6,7 +6,7 @@ import os
 def read(*paths):
     return open(os.path.join(os.path.dirname(__file__), *paths), 'r').read()
 
-version = '2.0b2'
+version = '2.0b3.dev0'
 
 setup(
     name='collective.pdfpeek',
