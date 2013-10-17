@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b2 (unreleased)
+2.0b2 (2013-10-17)
 ------------------
 
 - Fix missing README.rst in package.
