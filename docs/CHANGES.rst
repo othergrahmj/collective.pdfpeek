@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.0 (unreleased)
-----------------
+2.0b1 (2013-10-17)
+------------------
 
 - Add a basic behavior to allow users to create PDF thumbnails for their own
   dexterity content types.
