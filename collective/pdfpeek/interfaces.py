@@ -3,6 +3,7 @@ from zope import schema
 from zope.interface import Interface
 from Products.CMFPlone import PloneMessageFactory as _
 
+PDFPEEK_ANNOTATION_KEY = 'pdfpeek'
 ALLOWED_CONVERSION_TYPES = [
     'application/pdf',
 ]

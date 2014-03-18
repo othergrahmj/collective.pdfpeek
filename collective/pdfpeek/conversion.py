@@ -6,6 +6,8 @@ from PyPDF2 import PdfFileReader
 from PyPDF2.utils import PdfReadError
 
 from cStringIO import StringIO
+from collective.pdfpeek import HAS_BLOBIMAGE
+from collective.pdfpeek.interfaces import PDFPEEK_ANNOTATION_KEY
 from collective.pdfpeek.interfaces import IPDFDataExtractor
 from collective.pdfpeek.interfaces import IPDF
 from collective.pdfpeek.interfaces import IPDFPeekConfiguration
@@ -16,6 +18,11 @@ from zope.component import getUtility
 from zope.interface import alsoProvides
 from zope.interface import noLongerProvides
 from zope.interface import implementer
+
+try:
+    from plone.namedfile.file import NamedBlobImage
+except ImportError:
+    pass
 
 import logging
 import subprocess
@@ -146,10 +153,10 @@ class AbstractPDFExtractor(object):
             # set up a human readable page number counter starting at 1
             page_number = page + 1
             # set up the image object ids and titles
-            image_id = "%d_preview" % page_number
-            image_title = "Page %d Preview" % page_number
-            image_thumb_id = "%d_thumb" % page_number
-            image_thumb_title = "Page %d Thumbnail" % page_number
+            image_id = u"%d_preview" % page_number
+            image_title = u"Page %d Preview" % page_number
+            image_thumb_id = u"%d_thumb" % page_number
+            image_thumb_title = u"Page %d Thumbnail" % page_number
             # create a file object to store the thumbnail and preview in
             raw_image_thumb = StringIO()
             raw_image_preview = StringIO()
@@ -179,10 +186,20 @@ class AbstractPDFExtractor(object):
                              optimize=self.img_preview_optimize,
                              progressive=self.img_preview_progressive)
             # create the OFS.Image objects
-            image_full_object = OFSImage(
-                image_id, image_title, raw_image_preview)
-            image_thumb_object = OFSImage(
-                image_thumb_id, image_thumb_title, raw_image_thumb)
+            if HAS_BLOBIMAGE:
+                image_full_object = NamedBlobImage(
+                    filename=image_id,
+                    data=raw_image_preview.getvalue(),
+                    contentType='image/' + self.img_preview_format.lower())
+                image_thumb_object = NamedBlobImage(
+                    filename=image_thumb_id,
+                    data=raw_image_thumb.getvalue(),
+                    contentType='image/' + self.img_thumb_format.lower())
+            else:
+                image_full_object = OFSImage(
+                    image_id, image_title, raw_image_preview)
+                image_thumb_object = OFSImage(
+                    image_thumb_id, image_thumb_title, raw_image_thumb)
             # add the objects to the images dict
             images[image_id] = image_full_object
             images[image_thumb_id] = image_thumb_object
@@ -244,7 +261,7 @@ class AbstractPDFExtractor(object):
             storage['image_thumbnails'] = self.get_thumbnails(0, self.pages)
 
             annotations = IAnnotations(self.context)
-            annotations['pdfpeek'] = storage
+            annotations[PDFPEEK_ANNOTATION_KEY] = storage
 
             self.context.reindexObject()
             logger.info(self.successmsg)
@@ -267,8 +284,8 @@ def remove_image_previews(content):
 
     # remove the annotated images
     annotations = IAnnotations(content)
-    if 'pdfpeek' in annotations:
-        del annotations['pdfpeek']
+    if PDFPEEK_ANNOTATION_KEY in annotations:
+        del annotations[PDFPEEK_ANNOTATION_KEY]
     content.reindexObject()
     msg = "Removed preview annotations from %s." % content.id
     logger.info(msg)

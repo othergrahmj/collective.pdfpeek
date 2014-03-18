@@ -7,6 +7,7 @@ from Products.Five.browser import BrowserView
 from plone.registry.interfaces import IRegistry
 from collective.pdfpeek.interfaces import IPDFPeekConfiguration
 from collective.pdfpeek.interfaces import IPDF
+from collective.pdfpeek.interfaces import PDFPEEK_ANNOTATION_KEY
 
 
 class PdfImageAnnotationView(BrowserView):
@@ -17,8 +18,9 @@ class PdfImageAnnotationView(BrowserView):
     def num_pages(self):
         context = aq_inner(self.context)
         annotations = IAnnotations(context)
-        if annotations['pdfpeek']['image_thumbnails']:
-            annotations_len = len(annotations['pdfpeek']['image_thumbnails'])
+        if annotations[PDFPEEK_ANNOTATION_KEY]['image_thumbnails']:
+            annotations_len = len(
+                annotations[PDFPEEK_ANNOTATION_KEY]['image_thumbnails'])
             num_pages = range(annotations_len / 2)
         else:
             num_pages = 0

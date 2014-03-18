@@ -98,11 +98,12 @@ And store the list of jpegs on the ATFile object as an annotation.
 
     >>> from zope.annotation.interfaces import IAnnotations
     >>> from zope.annotation.interfaces import IAttributeAnnotatable
+    >>> from zope.annotation.interfaces import PDFPEEK_ANNOTATION_KEY
     >>> from zope.interface import alsoProvides
     >>> alsoProvides(portal.test_pdf, IAttributeAnnotatable)
     >>> annotations = IAnnotations(portal.test_pdf)
-    >>> annotations['pdfpeek'] = {}
-    >>> annotations['pdfpeek']['image_thumbnails'] = images
+    >>> annotations[PDFPEEK_ANNOTATION_KEY] = {}
+    >>> annotations[PDFPEEK_ANNOTATION_KEY]['image_thumbnails'] = images
 
 OK, now let's try to access the annotation on the object:
 
@@ -233,14 +234,14 @@ Ok, so we have the annotations on there, but do they contain what we expect? Let
 
     >>> dict(portal.test_pdf_3.__annotations__)
     {'pdfpeek': <BTrees.OOBTree.OOBTree object at ...>, 'Archetypes.storage.AnnotationStorage-file': <plone.app.blob.field.BlobWrapper object at ...>, 'Archetypes.storage.AnnotationStorage-title': u'Yet Another Test PDF File'}
-    >>> dict(portal.test_pdf_3.__annotations__['pdfpeek']['image_thumbnails'])
+    >>> dict(portal.test_pdf_3.__annotations__[PDFPEEK_ANNOTATION_KEY]['image_thumbnails'])
     {'1_preview': <Image at 1_preview>, '1_thumb': <Image at 1_thumb>}
-    >>> dict(portal.test_pdf_3.__annotations__)['pdfpeek']['pages']
+    >>> dict(portal.test_pdf_3.__annotations__)[PDFPEEK_ANNOTATION_KEY]['pages']
     1
-    >>> 'metadata' in portal.test_pdf_3.__annotations__['pdfpeek']
+    >>> 'metadata' in portal.test_pdf_3.__annotations__[PDFPEEK_ANNOTATION_KEY]
     True
     >>> annotations = dict(portal.test_pdf_3.__annotations__)
-    >>> image = annotations['pdfpeek']['image_thumbnails']['1_preview']
+    >>> image = annotations[PDFPEEK_ANNOTATION_KEY]['image_thumbnails']['1_preview']
     >>> image
     <Image at 1_preview>
 

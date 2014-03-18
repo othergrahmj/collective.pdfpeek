@@ -4,6 +4,13 @@ Changelog
 2.0b3 (unreleased)
 ------------------
 
+- Use ``NamedBlobImages`` instead of ``OFSImage``.
+  [saily]
+
+- Use ``IAnnotations`` adapter in image traverser and update to global
+  annotation key in interfaces ``PDFPEEK_ANNOTATION_KEY``.
+  [saily]
+
 - Update ``bootstrap.py`` for buildout 2.x.
   [saily]
 
