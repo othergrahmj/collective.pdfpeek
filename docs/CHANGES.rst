@@ -4,7 +4,8 @@ Changelog
 2.0b3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update ``bootstrap.py`` for buildout 2.x.
+  [saily]
 
 
 2.0b2 (2013-10-17)
