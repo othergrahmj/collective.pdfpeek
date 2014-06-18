@@ -1,5 +1,6 @@
-from cStringIO import StringIO
+# -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
+from cStringIO import StringIO
 
 
 def runProfile(portal, profileName):
@@ -11,7 +12,7 @@ def install(portal):
     """Run the GS profile to install this package"""
     out = StringIO()
     runProfile(portal, 'profile-collective.pdfpeek:default')
-    print >>out, "Installed collective.pdfpeek"
+    print >>out, 'Installed collective.pdfpeek'  # noqa
     return out.getvalue()
 
 
@@ -28,5 +29,5 @@ def uninstall(portal, reinstall=False):
     out = StringIO()
     if not reinstall:
         runProfile(portal, 'profile-collective.pdfpeek:uninstall')
-        print >>out, "Uninstalled collective.pdfpeek"
+        print >>out, 'Uninstalled collective.pdfpeek'  # noqa
     return out.getvalue()

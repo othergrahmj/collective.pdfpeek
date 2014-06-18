@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from Products.ATContentTypes.interface.file import IATFile
-
 from collective.pdfpeek import testing
 from collective.pdfpeek.interfaces import IPDFDataExtractor
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
-from plone.app.testing import logout
 from plone.app.testing import login
+from plone.app.testing import logout
 from plone.app.testing import setRoles
 from unittest2 import TestCase
 
@@ -138,5 +137,3 @@ class TestATDataExtraction(TestCase):
         self.assertIsNotNone(images)
         self.assertEqual(type(images), dict)
         self.assertEqual(len(images.keys()), 1 * 2)  # 2 images each
-
-

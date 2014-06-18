@@ -63,14 +63,14 @@ PDFPEEK_AT_INTEGRATION_TESTING = IntegrationTesting(
         PDFPEEK_SAMPLEDATA_FIXTURE,
         PDFPEEK_AT_FIXTURE,
     ),
-    name="PDFPeek:AT:Integration"
+    name='PDFPeek:AT:Integration'
 )
 PDFPEEK_AT_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(
         PDFPEEK_SAMPLEDATA_FIXTURE,
         PDFPEEK_AT_FIXTURE,
     ),
-    name="PDFPeek:AT:Functional"
+    name='PDFPeek:AT:Functional'
 )
 
 # Dexterity
@@ -79,14 +79,14 @@ PDFPEEK_DX_INTEGRATION_TESTING = IntegrationTesting(
         PDFPEEK_SAMPLEDATA_FIXTURE,
         PDFPEEK_DX_FIXTURE,
     ),
-    name="PDFPeek:DX:Integration"
+    name='PDFPeek:DX:Integration'
 )
 PDFPEEK_DX_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(
         PDFPEEK_SAMPLEDATA_FIXTURE,
         PDFPEEK_DX_FIXTURE,
     ),
-    name="PDFPeek:DX:Functional"
+    name='PDFPeek:DX:Functional'
 )
 
 # BBB

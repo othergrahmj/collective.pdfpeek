@@ -1,8 +1,8 @@
-from zope import interface
-from zope import component
-from zope.component.hooks import getSite
-from zope.component.hooks import getSiteManager
+# -*- coding: utf-8 -*-
 from ZODB.POSException import ConflictError
+from zope import component
+from zope import interface
+from zope.component.hooks import getSiteManager
 
 import datetime
 import logging
@@ -33,12 +33,14 @@ class Queue(persistent.Persistent):
                 # Let Zope handle this.
                 raise
             except:
-                logger.warn("Removing job %s after Exception:" % job,
-                            exc_info=1)
-                job.value = "%s failed" % job
+                logger.warn(
+                    'Removing job {0:s} after Exception:'.format(job),
+                    exc_info=1
+                )
+                job.value = '{0:s} failed'.format(job)
                 self.failures.append(job)
             else:
-                logger.info("Finished job: %s", job)
+                logger.info('Finished job: {0:s}'.format(job))
                 self.finished.append(job)
             self.pending.remove(job)
         return num
@@ -58,12 +60,11 @@ class Job(persistent.Persistent):
         self.executed = datetime.datetime.now()
 
     def __str__(self):
-        return '<Job %r with args %r and kwargs %r>' % (
+        return '<Job {0:s} with args {1:s} and kwargs {2:s}>'.format(
             self._fun.__name__, self._args, self._kwargs)
 
 
 def get_queue(name):
-    portal = getSite()
     queue = component.queryUtility(IQueue, name)
     if queue is None:
         queue = Queue()

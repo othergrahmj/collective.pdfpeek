@@ -32,12 +32,12 @@ class AbstractPDFExtractor(object):
     """Convert PDF in plone.app.contenttypes files
     """
 
-    img_thumb_format = "PNG"
+    img_thumb_format = 'PNG'
     img_thumb_quality = 60
     img_thumb_optimize = True
     img_thumb_progressive = False
 
-    img_preview_format = "PNG"
+    img_preview_format = 'PNG'
     img_preview_quality = 90
     img_preview_optimize = True
     img_preview_progressive = False
@@ -47,12 +47,12 @@ class AbstractPDFExtractor(object):
 
     @property
     def errmsg(self):
-        return "Failed to convert PDF to images with PDFPeek on {context.id}."\
+        return 'Failed to convert PDF to images with PDFPeek on {context.id}.'\
             .format(context=self.context)
 
     @property
     def successmsg(self):
-        return "Converted PDF to images with PDFPeek on {context.id}."\
+        return 'Converted PDF to images with PDFPeek on {context.id}.'\
             .format(context=self.context)
 
     @property
@@ -65,10 +65,10 @@ class AbstractPDFExtractor(object):
 
     def _fixPdf(self, string):
         try:
-            result = string + "\n%%EOF\n"
+            result = string + '\n%%EOF\n'
             return result
         except Exception:
-            logger.error("Unable to fix pdf file.")
+            logger.error('Unable to fix pdf file.')
             return string
 
     @property
@@ -77,22 +77,22 @@ class AbstractPDFExtractor(object):
         try:
             pdf = PdfFileReader(StringIO(self.data))
         except:
-            logger.warn("Error opening pdf file, trying to fix it...")
+            logger.warn('Error opening pdf file, trying to fix it...')
             fixed_data = self._fixPdf(self.data)
 
             # try to reopen the pdf file again
             try:
                 pdf = PdfFileReader(StringIO(fixed_data))
             except:
-                logger.warn("This pdf file cannot be fixed.")
+                logger.warn('This pdf file cannot be fixed.')
 
         if pdf and pdf.isEncrypted:
             try:
                 decrypt = pdf.decrypt('')
                 if decrypt == 0:
-                    logger.warn("This pdf is password protected.")
+                    logger.warn('This pdf is password protected.')
             except:
-                logger.warn("Errors while decrypting the pdf file.")
+                logger.warn('Errors while decrypting the pdf file.')
 
         if pdf is None:
             remove_image_previews(self.context)
@@ -116,7 +116,7 @@ class AbstractPDFExtractor(object):
             try:
                 data = dict(self.pdf.getDocumentInfo())
             except (TypeError, PdfReadError) as e:
-                logger.error("{0}: {1}".format(e.__class__, e))
+                logger.error('{0}: {1}'.format(e.__class__, e))
 
             data['width'] = float(self.pdf.getPage(0).mediaBox.getWidth())
             data['height'] = float(self.pdf.getPage(0).mediaBox.getHeight())
@@ -139,17 +139,17 @@ class AbstractPDFExtractor(object):
         images = {}
 
         # Extracting self.pages pages
-        logger.info("Extracting {0:d} page screenshots".format(self.pages))
+        logger.info('Extracting {0:d} page screenshots'.format(self.pages))
 
         for page in range(page_start, page_start + pages):
             # for each page in the pdf file,
             # set up a human readable page number counter starting at 1
             page_number = page + 1
             # set up the image object ids and titles
-            image_id = "%d_preview" % page_number
-            image_title = "Page %d Preview" % page_number
-            image_thumb_id = "%d_thumb" % page_number
-            image_thumb_title = "Page %d Thumbnail" % page_number
+            image_id = '%d_preview' % page_number
+            image_title = 'Page %d Preview' % page_number
+            image_thumb_id = '%d_thumb' % page_number
+            image_thumb_title = 'Page %d Thumbnail' % page_number
             # create a file object to store the thumbnail and preview in
             raw_image_thumb = StringIO()
             raw_image_preview = StringIO()
@@ -159,7 +159,7 @@ class AbstractPDFExtractor(object):
             try:
                 img_thumb = Image.open(StringIO(raw_image))
             except IOError:
-                logger.error("This is not an image: {0}".format(raw_image))
+                logger.error('This is not an image: {0}'.format(raw_image))
                 break
 
             img_thumb.thumbnail(thumb_size, Image.ANTIALIAS)
@@ -186,7 +186,7 @@ class AbstractPDFExtractor(object):
             # add the objects to the images dict
             images[image_id] = image_full_object
             images[image_thumb_id] = image_thumb_object
-            logger.info("Thumbnail generated.")
+            logger.info('Thumbnail generated.')
 
         return images
 
@@ -196,27 +196,27 @@ class AbstractPDFExtractor(object):
         and a page number argument and converts that page number of the pdf
         file to a png image file.
         """
-        first_page = "-dFirstPage={0:d}".format(page_num)
-        last_page = "-dLastPage={0:d}".format(page_num)
+        first_page = '-dFirstPage={0:d}'.format(page_num)
+        last_page = '-dLastPage={0:d}'.format(page_num)
         gs_cmd = [
-            "gs",
-            "-q",
-            "-dSAFER",
-            "-dBATCH",
-            "-dNOPAUSE",
-            "-sDEVICE=png16m",
-            "-dGraphicsAlphaBits=4",
-            "-dTextAlphaBits=4",
+            'gs',
+            '-q',
+            '-dSAFER',
+            '-dBATCH',
+            '-dNOPAUSE',
+            '-sDEVICE=png16m',
+            '-dGraphicsAlphaBits=4',
+            '-dTextAlphaBits=4',
             first_page,
             last_page,
-            "-r59x56",
-            "-sOutputFile=%stdout",
-            "-",
+            '-r59x56',
+            '-sOutputFile=%stdout',  # noqa
+            '-',
         ]
 
         image_result = None
-        """run the ghostscript command on the pdf file,
-        capture the output png file of the specified page number"""
+        # run the ghostscript command on the pdf file, capture the output
+        # png file of the specified page number
         bufsize = -1
         gs_process = subprocess.Popen(gs_cmd,
                                       bufsize=bufsize,
@@ -227,10 +227,10 @@ class AbstractPDFExtractor(object):
         gs_process.stdin.close()
         return_code = gs_process.returncode
         if return_code == 0:
-            logger.info("Ghostscript processed one page of a pdf file.")
+            logger.info('Ghostscript processed one page of a pdf file.')
         else:
-            logger.warn("Ghostscript process did not exit cleanly! "
-                        "Error Code: {0}".format(return_code))
+            logger.warn('Ghostscript process did not exit cleanly! '
+                        'Error Code: {0}'.format(return_code))
             image_result = None
         return image_result
 
@@ -270,6 +270,6 @@ def remove_image_previews(content):
     if 'pdfpeek' in annotations:
         del annotations['pdfpeek']
     content.reindexObject()
-    msg = "Removed preview annotations from %s." % content.id
+    msg = 'Removed preview annotations from {0:s}.'.format(content.id)
     logger.info(msg)
     return msg

@@ -4,6 +4,10 @@ Changelog
 2.0b3 (unreleased)
 ------------------
 
+- Flake8, PEP8 cleanup, remove double quotes, PEP3101, jshint, jscs and csslint
+  checks using ``plone.recipe.codeanalysis``. This is also done on travis.
+  [saily]
+
 - Update ``buildout`` and travis config.
   [saily]
 

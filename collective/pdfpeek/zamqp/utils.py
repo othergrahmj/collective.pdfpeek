@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from collective.pdfpeek.interfaces import IPDFDataExtractor
 from collective.pdfpeek import interfaces
 from collective.pdfpeek.conversion import remove_image_previews
-from collective.zamqp.interfaces import IProducer
+from collective.pdfpeek.interfaces import IPDFDataExtractor
 from collective.zamqp.consumer import Consumer
+from collective.zamqp.interfaces import IProducer
 from collective.zamqp.producer import Producer
 from plone.app.uuid.utils import uuidToObject
 from plone.registry.interfaces import IRegistry
@@ -11,7 +11,7 @@ from plone.uuid.interfaces import IUUID
 from zope.component import getUtility
 from zope.interface import Interface
 
-QUEUE_NAME = "collective.pdfpeek.queue"
+QUEUE_NAME = 'collective.pdfpeek.queue'
 
 
 class IPDFProcessingMessage(Interface):
@@ -21,8 +21,8 @@ class IPDFProcessingMessage(Interface):
 class PDFProcessingProducer(Producer):
     """Produces PDF processing tasks"""
 
-    connection_id = "superuser"
-    serializer = "msgpack"
+    connection_id = 'superuser'
+    serializer = 'msgpack'
     queue = QUEUE_NAME
     routing_key = QUEUE_NAME
 
@@ -33,7 +33,7 @@ class PDFProcessingProducer(Producer):
 class PDFProcessingConsumer(Consumer):
     """Consumes PDF processing tasks"""
 
-    connection_id = "superuser"
+    connection_id = 'superuser'
     marker = IPDFProcessingMessage
     queue = QUEUE_NAME
     routing_key = QUEUE_NAME

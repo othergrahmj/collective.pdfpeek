@@ -8,4 +8,3 @@ class PdfpeekViewlet(ViewletBase):
     """
 
     index = ViewPageTemplateFile('templates/pdfpeek.pt')
-

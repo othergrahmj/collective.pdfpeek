@@ -1,12 +1,13 @@
-import os
-import logging
-import tempfile
-
-from zope.interface import Interface
-from zc.lockfile import LockFile, LockError
+# -*- coding: utf-8 -*-
 from Products.Five import BrowserView
-
 from collective.pdfpeek.async import get_queue
+from zc.lockfile import LockError
+from zc.lockfile import LockFile
+from zope.interface import Interface
+
+import logging
+import os
+import tempfile
 
 LOCKFILE_NAME = os.path.join(tempfile.gettempdir(),
                              __name__ + '.process_conversion_queue')
@@ -31,8 +32,8 @@ class pdfpeekUtilView(BrowserView):
         try:
             lock = LockFile(LOCKFILE_NAME)
         except LockError:
-            return "`process_conversion_queue` is locked by another process (%r)." % (
-                LOCKFILE_NAME)
+            return '`process_conversion_queue` is locked by another ' + \
+                   'process ({0}).'.format(LOCKFILE_NAME)
 
         try:
             return self._process_conversion_queue()

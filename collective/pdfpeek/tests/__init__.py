@@ -1,2 +1,1 @@
-#flag file
-
+# -*- coding: utf-8 -*-

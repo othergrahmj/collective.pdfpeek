@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##########################################################################
 #                                                                        #
 #        copyright (c) 2009 David Brenneman                              #
@@ -13,6 +14,7 @@ __author__ = """David Brenneman <db@davidbrenneman.com>"""
 __docformat__ = 'plaintext'
 
 from zope.interface import Interface
+
 
 class IPDFpeekLayer(Interface):
     """Marker interface that defines a Zope 3 browserlayer.

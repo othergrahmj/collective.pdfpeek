@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
-
+from Products.Five.browser import BrowserView
+from collective.pdfpeek.interfaces import IPDF
+from collective.pdfpeek.interfaces import IPDFPeekConfiguration
+from plone.registry.interfaces import IRegistry
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
-from Products.Five.browser import BrowserView
-from plone.registry.interfaces import IRegistry
-from collective.pdfpeek.interfaces import IPDFPeekConfiguration
-from collective.pdfpeek.interfaces import IPDF
 
 
 class PdfImageAnnotationView(BrowserView):

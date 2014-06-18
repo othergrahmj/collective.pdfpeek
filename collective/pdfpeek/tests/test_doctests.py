@@ -13,13 +13,13 @@ functional_tests = [
 
 def test_suite():
     return unittest.TestSuite(
-        [layered(doctest.DocFileSuite('tests/%s' % f,
+        [layered(doctest.DocFileSuite('tests/{0:s}'.format(f),
                                       package='collective.pdfpeek',
                                       optionflags=testing.optionflags),
                  layer=testing.PDFPEEK_INTEGRATION_TESTING)
             for f in integration_tests]
         +
-        [layered(doctest.DocFileSuite('tests/%s' % f,
+        [layered(doctest.DocFileSuite('tests/{0:s}'.format(f),
                                       package='collective.pdfpeek',
                                       optionflags=testing.optionflags),
                  layer=testing.PDFPEEK_FUNCTIONAL_TESTING)

@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
 from collective.pdfpeek import interfaces
-from collective.pdfpeek.async import get_queue, Job
+from collective.pdfpeek.async import Job
+from collective.pdfpeek.async import get_queue
 from collective.pdfpeek.conversion import remove_image_previews
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
 
 import logging
 
@@ -38,7 +39,7 @@ def queue_document_conversion(content, event):
     converter_job = Job(handle_pdf, content)
     # add it to the queue
     conversion_queue.pending.append(converter_job)
-    logger.info("Document Conversion Job Queued")
+    logger.info('Document Conversion Job Queued')
 
 
 def queue_image_removal(content):
@@ -50,4 +51,4 @@ def queue_image_removal(content):
     conversion_queue = get_queue('collective.pdfpeek.conversion_' + portal.id)
     removal_job = Job(remove_image_previews, content)
     conversion_queue.pending.append(removal_job)
-    logger.info("Document Preview Image Removal Job Queued")
+    logger.info('Document Preview Image Removal Job Queued')
