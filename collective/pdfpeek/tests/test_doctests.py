@@ -16,12 +16,12 @@ def test_suite():
         [layered(doctest.DocFileSuite('tests/{0:s}'.format(f),
                                       package='collective.pdfpeek',
                                       optionflags=testing.optionflags),
-                 layer=testing.PDFPEEK_INTEGRATION_TESTING)
+                 layer=testing.PDFPEEK_AT_INTEGRATION_TESTING)
             for f in integration_tests]
         +
         [layered(doctest.DocFileSuite('tests/{0:s}'.format(f),
                                       package='collective.pdfpeek',
                                       optionflags=testing.optionflags),
-                 layer=testing.PDFPEEK_FUNCTIONAL_TESTING)
+                 layer=testing.PDFPEEK_AT_FUNCTIONAL_TESTING)
             for f in functional_tests]
     )
