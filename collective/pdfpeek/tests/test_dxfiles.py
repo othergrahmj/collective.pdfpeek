@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from collective.pdfpeek import testing
 from collective.pdfpeek.tests.test_atfiles import TestATDataExtraction
+from plone.app.contenttypes.interfaces import IFile
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
-from plone.app.testing import logout
 from plone.app.testing import login
+from plone.app.testing import logout
 from plone.app.testing import setRoles
-from plone.app.contenttypes.interfaces import IFile
+from plone.dexterity.utils import createContentInContainer
 from plone.namedfile.file import NamedBlobFile
 
 
@@ -25,11 +26,11 @@ class TestDxDataExtraction(TestATDataExtraction):
         # Create files
         for uri in self.layer['pdf_files']:
             content_id = uri.split('/').pop()
-            new_id = self.portal.invokeFactory('File', content_id)
+            blobfile = NamedBlobFile(filename=unicode(content_id),
+                                     data=open(uri, 'r').read())
 
-            dxfile = self.portal[new_id]
-            dxfile.file = NamedBlobFile(filename=unicode(content_id),
-                                        data=open(uri, 'r').read())
+            dxfile = createContentInContainer(
+                self.portal, 'File', id=content_id, file=blobfile)
 
             self.assertTrue(IFile.providedBy(dxfile))
 

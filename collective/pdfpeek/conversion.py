@@ -4,18 +4,17 @@ from OFS.Image import Image as OFSImage
 from PIL import Image
 from PyPDF2 import PdfFileReader
 from PyPDF2.utils import PdfReadError
-
 from cStringIO import StringIO
-from collective.pdfpeek.interfaces import IPDFDataExtractor
 from collective.pdfpeek.interfaces import IPDF
+from collective.pdfpeek.interfaces import IPDFDataExtractor
 from collective.pdfpeek.interfaces import IPDFPeekConfiguration
 from plone.registry.interfaces import IRegistry
 from zope.annotation.interfaces import IAnnotations
 from zope.annotation.interfaces import IAttributeAnnotatable
 from zope.component import getUtility
 from zope.interface import alsoProvides
-from zope.interface import noLongerProvides
 from zope.interface import implementer
+from zope.interface import noLongerProvides
 
 import logging
 import subprocess
