@@ -53,6 +53,10 @@ setup(
             'collective.zamqp >= 0.12.0',
         ],
         'test': [
+            'Products.ATContentTypes',
+            'collective.zamqp >= 0.12.0',
+            'msgpack-python',
+            'plone.app.contenttypes',
             'plone.app.testing',
         ],
     },

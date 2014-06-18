@@ -4,6 +4,9 @@ Changelog
 2.0b3 (unreleased)
 ------------------
 
+- Drop support for Plone 4.1, Fix test setup with ``plone.app.contenttypes``.
+  [saily]
+
 - Flake8, PEP8 cleanup, remove double quotes, PEP3101, jshint, jscs and csslint
   checks using ``plone.recipe.codeanalysis``. This is also done on travis.
   [saily]
