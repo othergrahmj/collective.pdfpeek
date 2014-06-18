@@ -4,6 +4,9 @@ Changelog
 2.0b3 (unreleased)
 ------------------
 
+- Update ``buildout`` and travis config.
+  [saily]
+
 - Update ``bootstrap.py`` for buildout 2.x.
   [saily]
 
