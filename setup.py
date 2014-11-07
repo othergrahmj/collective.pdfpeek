@@ -40,6 +40,7 @@ setup(
         'plone.browserlayer',
         'plone.rfc822',
         'Pillow',
+        'plone.api',
     ],
     extras_require={
         'archetype': [
