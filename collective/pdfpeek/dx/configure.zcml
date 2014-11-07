@@ -25,12 +25,24 @@
     <!-- Use zope clockserver -->
     <subscriber
         for="collective.pdfpeek.dx.behaviors.IPDFDataExtractable
+             zope.lifecycleevent.IObjectCreatedEvent"
+        handler="..events.queue_document_conversion"
+        zcml:condition="not-installed collective.zamqp"
+        />
+    <subscriber
+        for="collective.pdfpeek.dx.behaviors.IPDFDataExtractable
              zope.lifecycleevent.IObjectModifiedEvent"
         handler="..events.queue_document_conversion"
         zcml:condition="not-installed collective.zamqp"
         />
 
     <!-- Use zope zamqp -->
+    <subscriber
+        for="collective.pdfpeek.dx.behaviors.IPDFDataExtractable
+             zope.lifecycleevent.IObjectCreatedEvent"
+        handler="..zamqp.utils.zamqp_queue_document_conversion"
+        zcml:condition="installed collective.zamqp"
+        />
     <subscriber
         for="collective.pdfpeek.dx.behaviors.IPDFDataExtractable
              zope.lifecycleevent.IObjectModifiedEvent"

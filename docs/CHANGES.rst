@@ -4,6 +4,9 @@ Changelog
 2.0b3 (unreleased)
 ------------------
 
+- Updated events and added subscriber for IObjectCreatedEvent.
+  [agitator]
+
 - Drop support for Plone 4.1, Fix test setup with ``plone.app.contenttypes``.
   [saily]
 
