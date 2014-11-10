@@ -178,7 +178,6 @@ the event and fire the transform, annotating the results on the ATFile object:
 
     >>> from Products.Archetypes.event import ObjectEditedEvent
     >>> from zope.event import notify
-    >>> import zope.component.event
     >>> import transaction
     >>> notify(ObjectEditedEvent(portal.test_pdf_3))
 
