@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from collective.pdfpeek import interfaces
-from collective.pdfpeek.async import get_queue
 from collective.pdfpeek.async import Job
+from collective.pdfpeek.async import get_queue
 from collective.pdfpeek.conversion import remove_image_previews
 from plone import api
 from plone.registry.interfaces import IRegistry
