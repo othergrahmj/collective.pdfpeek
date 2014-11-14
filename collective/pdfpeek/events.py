@@ -3,6 +3,7 @@ from collective.pdfpeek import interfaces
 from collective.pdfpeek.async import Job
 from collective.pdfpeek.async import get_queue
 from collective.pdfpeek.conversion import remove_image_previews
+from plone import api
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
@@ -33,7 +34,7 @@ def queue_document_conversion(content, event):
         return
 
     # get the queue
-    portal = content.portal_url.getPortalObject()
+    portal = api.portal.get()
     conversion_queue = get_queue('collective.pdfpeek.conversion_' + portal.id)
     # create a converter job
     converter_job = Job(handle_pdf, content)
@@ -47,7 +48,7 @@ def queue_image_removal(content):
     Queues the image removal if there is no longer a pdf
     file stored on the object
     """
-    portal = content.portal_url.getPortalObject()
+    portal = api.portal.get()
     conversion_queue = get_queue('collective.pdfpeek.conversion_' + portal.id)
     removal_job = Job(remove_image_previews, content)
     conversion_queue.pending.append(removal_job)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from plone.directives import form
+from zope.interface import Interface
 
 
-class IPDFDataExtractable(form.Schema):
+class IPDFDataExtractable(Interface):
     """Marker interface for extractable primary field"""
