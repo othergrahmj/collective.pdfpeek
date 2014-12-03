@@ -65,7 +65,7 @@ Use ``zc.buildout`` to install. If you want asynchronous queue processing using
 - ``collective.pdfpeek [zamqp]`` for ``collective.zamqp`` support
 
 You can also combine those extras as shown below (see ``buildout-zamqp.cfg``
-for a working buildout configuration):
+for a working buildout configuration)::
 
     [buildout]
     ...
