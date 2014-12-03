@@ -4,6 +4,9 @@ Changelog
 2.0.0 (unreleased)
 ------------------
 
+- Update ``README.rst`` to include a configuration example
+  [saily]
+
 - Fix failing tests by including metadata into annotation storage of
   processed files. Test updates.
   [saily]

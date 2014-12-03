@@ -9,7 +9,8 @@ Introduction
 
 PdfPeek is a Plone 4 add-on product that utilizes GNU Ghostscript to generate
 image thumbnail previews of PDF files uploaded to ATFile based content
-objects. Dexterity (and ``plone.app.contenttypes``) support was added in 2.0.
+objects. Dexterity (and ``plone.app.contenttypes``) support was added in
+``2.0.0`
 
 * This product, when installed in a Plone 4.x site, will automatically generate
   preview and thumbnail images of each page of uploaded PDF files and store
@@ -20,8 +21,8 @@ objects. Dexterity (and ``plone.app.contenttypes``) support was added in 2.0.
   using the site, as the processing of large PDF files can take many minutes to
   complete.
 
-  Since 2.0 pdfpeek supports *rabbitmq* message queuing to generate thumbnails,
-  see Installation_ section for more details
+  Since ``2.0.0`` pdfpeek supports *rabbitmq* message queuing to generate
+  thumbnails, see Installation_ section for more details
 
 * When a file object is initialized or edited, PdfPeek checks to see if a PDF
   file was uploaded. If so, a ghostscript image conversion job is added to the
@@ -53,6 +54,43 @@ A custom traverser is available to make it easy to access the images and
 previews directly, as well as to build custom views incorporating image
 previews of file content.
 
+Installation
+------------
+
+Use ``zc.buildout`` to install. If you want asynchronous queue processing using
+``collective.zamqp`` you may want to add ``collective.pdfpeek [zamqp]``. Use
+
+- ``collective.pdfpeek [dexterity]`` for dexterity support
+- ``collective.pdfpeek [archetype]`` for archetype support
+- ``collective.pdfpeek [zamqp]`` for ``collective.zamqp`` support
+
+You can also combine those extras as shown below (see ``buildout-zamqp.cfg``
+for a working buildout configuration):
+
+    [buildout]
+    ...
+    parts =
+        instance
+
+    [instance]
+    recipe = plone.recipe.zope2instance
+    user = admin:admin
+    http-address = 8080
+    eggs =
+        ...
+        collective.pdfpeek [dexterity, zamqp]
+
+    zope-conf-additional =
+        %import collective.zamqp
+        <amqp-broker-connection>
+            connection_id   superuser
+            hostname        127.0.0.1
+            port            5672
+            username        guest
+            password        guest
+            heartbeat       120
+            keepalive       60
+        </amqp-broker-connection>
 
 Configuration
 -------------
