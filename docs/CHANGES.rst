@@ -1,8 +1,12 @@
 Changelog
 =========
 
-2.0b3 (unreleased)
+2.0.0 (unreleased)
 ------------------
+
+- Fix failing tests by including metadata into annotation storage of
+  processed files. Test updates.
+  [saily]
 
 - Use ``abc.ABCMeta`` as metaclass for abstract base class.
   [saily]

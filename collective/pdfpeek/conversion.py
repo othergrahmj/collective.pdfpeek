@@ -244,6 +244,7 @@ class AbstractPDFExtractor:
             # Use BTrees
             storage = OOBTree()
             storage['image_thumbnails'] = self.get_thumbnails(0, self.pages)
+            storage['metadata'] = self.metadata
 
             annotations = IAnnotations(self.context)
             annotations['pdfpeek'] = storage
