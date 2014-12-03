@@ -4,6 +4,10 @@ Changelog
 2.0b3 (unreleased)
 ------------------
 
+- Fix dependencies and don't include ``collective.zamqp`` into tests to allow
+  test of default event handlers.
+  [saily]
+
 - Updated events and added subscriber for ``IObjectCreatedEvent``.
   [agitator]
 

@@ -44,9 +44,11 @@ setup(
     ],
     extras_require={
         'archetype': [
+            'Products.Archetypes',
             'Products.ATContentTypes'
         ],
         'dexterity': [
+            'plone.behavior',
             'plone.app.contenttypes >= 1.0rc1'
         ],
         'zamqp': [
@@ -55,7 +57,6 @@ setup(
         ],
         'test': [
             'Products.ATContentTypes',
-            'collective.zamqp >= 0.12.0',
             'msgpack-python',
             'plone.app.contenttypes',
             'plone.app.testing',
