@@ -4,6 +4,7 @@ from OFS.Image import Image as OFSImage
 from PIL import Image
 from PyPDF2 import PdfFileReader
 from PyPDF2.utils import PdfReadError
+from abc import ABCMeta
 from cStringIO import StringIO
 from collective.pdfpeek.interfaces import IPDF
 from collective.pdfpeek.interfaces import IPDFDataExtractor
@@ -27,9 +28,11 @@ mm = cm * 0.1
 
 
 @implementer(IPDFDataExtractor)
-class AbstractPDFExtractor(object):
+class AbstractPDFExtractor:
     """Convert PDF in plone.app.contenttypes files
     """
+
+    __metaclass__ = ABCMeta
 
     img_thumb_format = 'PNG'
     img_thumb_quality = 60

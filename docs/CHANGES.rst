@@ -4,6 +4,9 @@ Changelog
 2.0b3 (unreleased)
 ------------------
 
+- Use ``abc.ABCMeta`` as metaclass for abstract base class.
+  [saily]
+
 - Fix dependencies and don't include ``collective.zamqp`` into tests to allow
   test of default event handlers.
   [saily]
