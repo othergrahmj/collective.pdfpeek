@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.0 (unreleased)
+2.0.0 (2014-12-04)
 ------------------
 
 - Update ``README.rst`` to include a configuration example
