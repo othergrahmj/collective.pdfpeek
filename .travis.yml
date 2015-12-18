@@ -21,7 +21,7 @@ script:
   - test -n $QA && bin/code-analysis
   - bin/test
 after_success:
-  - test -n $QA && bin/createcoverage run bin/test && pip install coverage==3.6 -q coveralls && coveralls || true
+  - test -n $QA && bin/createcoverage run bin/test && pip install coverage==3.7 -q coveralls && coveralls || true
 after_failure:
   - bin/csslint --version
   - bin/jshint --version
