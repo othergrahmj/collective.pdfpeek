@@ -9,6 +9,7 @@ matrix:
     - env: PLONE_VERSION=4.2
     - env: PLONE_VERSION=5.0
 before_install:
+  - sudo apt-get update -qq
   - sudo apt-get install -y libjpeg-dev libgif-dev libpng-dev libz-dev ghostscript
   - mkdir -p buildout-cache/downloads
   - mkdir -p buildout-cache/eggs
