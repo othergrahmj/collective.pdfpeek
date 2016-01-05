@@ -10,8 +10,9 @@ from plone.app.testing import setRoles
 
 try:
     from unittest2 import TestCase
-except ImportError: # Python 2.7 probably
+except ImportError:  # Python 2.7 probably
     from unittest import TestCase
+
     
 class TestATDataExtraction(TestCase):
     """Unit tests for the transformation and metadata extraction of PDF files

@@ -5,10 +5,8 @@ import doctest
 
 try:
     import unittest2 as unittest
-except ImportError: # Python 2.7
+except ImportError:  # Python 2.7
     import unittest
-
-from unittest import TestCase
 
 
 integration_tests = [
