@@ -13,7 +13,7 @@ try:
 except ImportError:  # Python 2.7 probably
     from unittest import TestCase
 
-    
+
 class TestATDataExtraction(TestCase):
     """Unit tests for the transformation and metadata extraction of PDF files
        stored in ATFile objects.
