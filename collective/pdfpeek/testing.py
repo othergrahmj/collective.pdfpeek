@@ -74,20 +74,20 @@ PDFPEEK_AT_FUNCTIONAL_TESTING = FunctionalTesting(
 )
 
 # Dexterity
-PDFPEEK_DX_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(
-        PDFPEEK_SAMPLEDATA_FIXTURE,
-        PDFPEEK_DX_FIXTURE,
-    ),
-    name='PDFPeek:DX:Integration'
-)
-PDFPEEK_DX_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(
-        PDFPEEK_SAMPLEDATA_FIXTURE,
-        PDFPEEK_DX_FIXTURE,
-    ),
-    name='PDFPeek:DX:Functional'
-)
+#PDFPEEK_DX_INTEGRATION_TESTING = IntegrationTesting(
+#    bases=(
+#        PDFPEEK_SAMPLEDATA_FIXTURE,
+#        PDFPEEK_DX_FIXTURE,
+#    ),
+#    name='PDFPeek:DX:Integration'
+#)
+#PDFPEEK_DX_FUNCTIONAL_TESTING = FunctionalTesting(
+#    bases=(
+#        PDFPEEK_SAMPLEDATA_FIXTURE,
+#        PDFPEEK_DX_FIXTURE,
+#    ),
+#    name='PDFPeek:DX:Functional'
+#)
 
 optionflags = (
     doctest.REPORT_ONLY_FIRST_FAILURE |
