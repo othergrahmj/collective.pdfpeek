@@ -2,7 +2,14 @@
 from collective.pdfpeek import testing
 from plone.testing import layered
 import doctest
-import unittest2 as unittest
+
+try:
+    import unittest2 as unittest
+except ImportError: # Python 2.7
+    import unittest
+
+from unittest import TestCase
+
 
 integration_tests = [
     'integration.txt'
