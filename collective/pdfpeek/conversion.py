@@ -116,7 +116,32 @@ class AbstractPDFExtractor:
         data = {}
         if self.pdf:
             try:
-                data = dict(self.pdf.getDocumentInfo())
+                # getDocumentInfo() returns some information in
+                # a form which can not be pickled. So this data
+                # needs some sanitation before being returned.
+                #
+                # See documentation for PyPDF2.PdfFileReader.
+                #
+                # getDocumentInfo() returns either a DocumentInformation
+                # or None
+                documentInformation = self.pdf.getDocumentInfo()
+
+                # Restrict stored data to specified subset.
+                documentPropertyNames = ["/Title",
+                                         "/Author",
+                                         "/Subject",
+                                         "/Creator",
+                                         "/Producer",
+                                         "/ModDate",
+                                         "/CreationDate"]
+
+                if documentInformation != None:
+                    for propertyName in documentPropertyNames:
+                        propertyValue = documentInformation.getText(propertyName)
+
+                        if propertyValue != None:
+                            data[propertyName] = propertyValue
+
             except (TypeError, PdfReadError) as e:
                 logger.error('{0}: {1}'.format(e.__class__, e))
 

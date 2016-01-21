@@ -245,16 +245,24 @@ Check metadata stored into annotations
 
     >>> 'metadata' in annotations['pdfpeek']
     True
-    >>> annotations['pdfpeek']['metadata']
-    {'/Title': u'Plone CMS: Open Source Content Management',
-     '/CreationDate': u"D:20090416164855-07'00'",
-     '/Producer': u'Acrobat Distiller 9.0.0 (Macintosh)',
-     '/ModDate': u"D:20090416164855-07'00'",
-     '/Author': u'David Brenneman',
-     '/Creator': u'firefox-bin: cgpdftops CUPS filter',
-     'width': 612.0,
-     'height': 792.0,
-     'pages': 1}
+    >>> annotations['pdfpeek']['metadata']['/Title']
+    u'Plone CMS: Open Source Content Management'
+    >>> annotations['pdfpeek']['metadata']['/CreationDate']
+    u"D:20090416164855-07'00'"
+    >>> annotations['pdfpeek']['metadata']['pages']
+    1
+    >>> annotations['pdfpeek']['metadata']['/Producer']
+    u'Acrobat Distiller 9.0.0 (Macintosh)'
+    >>> annotations['pdfpeek']['metadata']['/Creator']
+    u'firefox-bin: cgpdftops CUPS filter'
+    >>> annotations['pdfpeek']['metadata']['/ModDate']
+    u"D:20090416164855-07'00'"
+    >>> annotations['pdfpeek']['metadata']['width']
+    612.0
+    >>> annotations['pdfpeek']['metadata']['height']
+    792.0
+    >>> annotations['pdfpeek']['metadata']['/Author']
+    u'David Brenneman'
 
 Hooray, the annotations are there after the event is fired, and they contain what we expect,
 the list of images output by the transform!
