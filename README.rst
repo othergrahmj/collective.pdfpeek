@@ -1,9 +1,6 @@
-..  image:: https://travis-ci.org/collective/collective.pdfpeek.png?branch=master
-    :target: https://travis-ci.org/collective/collective.pdfpeek
-
-..  image:: https://coveralls.io/repos/collective/collective.pdfpeek/badge.png
-    :target: https://coveralls.io/r/collective/collective.pdfpeek
-
+..  image:: https://travis-ci.org/othergrahmj/collective.pdfpeek.svg?branch=master
+    :target: https://travis-ci.org/othergrahmj/collective.pdfpeek
+	     
 Introduction
 ============
 
