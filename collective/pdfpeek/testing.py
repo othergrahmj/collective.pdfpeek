@@ -3,7 +3,9 @@ from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import applyProfile
 from plone.testing import Layer
+from plone.testing import z2
 
 import doctest
 import fnmatch
@@ -32,9 +34,27 @@ class PDFPeekATLayer(PloneSandboxLayer):
     def setUpZope(self, app, configurationContext):
         import collective.pdfpeek
         self.loadZCML(package=collective.pdfpeek)
+        
+        z2.installProduct(app, 'Products.Archetypes')
+        z2.installProduct(app, 'Products.ATContentTypes')
+        z2.installProduct(app, 'plone.app.blob')
+
+        import Products.ATContentTypes
+        self.loadZCML(package=Products.ATContentTypes)
+
+    def tearDownZope(self, app):
+        z2.uninstallProduct(app, 'Products.Archetypes')
+        z2.uninstallProduct(app, 'Products.ATContentTypes')
+        z2.uninstallProduct(app, 'plone.app.blob')
 
     def setUpPloneSite(self, portal):
         self.applyProfile(portal, 'collective.pdfpeek:default')
+
+        # install Products.ATContentTypes manually if profile is available
+        # (this is only needed for Plone >= 5)
+        profiles = [x['id'] for x in portal.portal_setup.listProfileInfo()]
+        if 'Products.ATContentTypes:default' in profiles:
+            applyProfile(portal, 'Products.ATContentTypes:default')
 
 PDFPEEK_AT_FIXTURE = PDFPeekATLayer()
 
@@ -74,20 +94,20 @@ PDFPEEK_AT_FUNCTIONAL_TESTING = FunctionalTesting(
 )
 
 # Dexterity
-PDFPEEK_DX_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(
-        PDFPEEK_SAMPLEDATA_FIXTURE,
-        PDFPEEK_DX_FIXTURE,
-    ),
-    name='PDFPeek:DX:Integration'
-)
-PDFPEEK_DX_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(
-        PDFPEEK_SAMPLEDATA_FIXTURE,
-        PDFPEEK_DX_FIXTURE,
-    ),
-    name='PDFPeek:DX:Functional'
-)
+# PDFPEEK_DX_INTEGRATION_TESTING = IntegrationTesting(
+#    bases=(
+#        PDFPEEK_SAMPLEDATA_FIXTURE,
+#        PDFPEEK_DX_FIXTURE,
+#    ),
+#    name='PDFPeek:DX:Integration'
+# )
+# PDFPEEK_DX_FUNCTIONAL_TESTING = FunctionalTesting(
+#     bases=(
+#         PDFPEEK_SAMPLEDATA_FIXTURE,
+#         PDFPEEK_DX_FIXTURE,
+#     ),
+#     name='PDFPeek:DX:Functional'
+# )
 
 optionflags = (
     doctest.REPORT_ONLY_FIRST_FAILURE |
