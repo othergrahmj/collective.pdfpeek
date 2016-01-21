@@ -30,7 +30,7 @@ class TestATDataExtraction(TestCase):
         # Create files
         for uri in self.layer['pdf_files']:
             content_id = uri.split('/').pop()
-            new_id = self.portal.invokeFactory('ATFile', content_id)
+            new_id = self.portal.invokeFactory('File', content_id)
 
             atfile = self.portal[new_id]
             atfile.setFile(open(uri, 'r').read())
