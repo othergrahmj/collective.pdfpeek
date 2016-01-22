@@ -41,6 +41,7 @@ setup(
         'plone.rfc822',
         'Pillow',
         'plone.api',
+        'plone.app.jquerytools',
     ],
     extras_require={
         'archetype': [

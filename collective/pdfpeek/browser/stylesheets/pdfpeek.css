@@ -1,56 +1,29 @@
-/* define background image for the expose mask */
-#mask {
-    background:#123 url(++resource++collective.pdfpeek.images/mask_gradient_1800.png) no-repeat;
-    background-position:50% -200px;
-}
-
 /* general settings for both scrollables */
 div.items {
-    width:20000em;
-    position:absolute;
     clear:both;
+    padding:10px;
 }
 
-/* next/prev buttons */
-div.navi {
-    background-image:url(++resource++collective.pdfpeek.images/hori_large.png);
-    width:30px;
-    height:30px;
-    float:left;
-    margin-top:55px;
-}
-
-div.navi:hover          { background-position:-30px 0; }
-div.navi:active         { background-position:-60px 0; }
-div.nextPage            { background-position: 0 -30px; clear:right; }
-div.nextPage:hover  { background-position:-30px -30px; }
-div.nextPage:active     { background-position:-60px -30px; }
-
-
-div.navi.disabled {
-    visibility:hidden;
-}
-
-
-/* the thumbnail scrollable */
+/* the thumbnails */
 #thumbnails {
-    position:relative;
-    overflow:hidden;
     float:left;
-    width: 602px;
-    height:240px;
-    background:#222 url(++resource++collective.pdfpeek.images/h150.png) repeat-x;
-    margin:15px;
-    border:2px solid #fff;
-    outline:1px solid #333;
-    -moz-outline-radius:4px;
+    margin:20px;
+    border:5px solid #fff;
+    border-radius:5px;
 }
 
 #thumbnails div.items div {
-    padding:5px;
+    padding:0px;
     float:left;
 }
 
+/* Each individual thumbnail */
+#singlethumb {
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-right:7px;
+    padding-left:7px;
+}
 
 /* box styling */
 #box {
@@ -87,6 +60,7 @@ div.navi.disabled {
     margin:50px;
     width:557px;
     height:600px;
+    padding:50px;
 }
 
 /* single image */
